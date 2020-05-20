@@ -426,12 +426,14 @@ define([
          * more than one TinyMCE in the DOM.
          */
         var modal_container = self.$el.parents(".plone-modal-dialog")
-
+        if (modal_container.length === 0) {
+            modal_container = self.$el.parents(".mosaic-grid-cell")
+        }
         if (modal_container.length > 0) {
             var random_id = Math.random().toString(36).substring(2, 15) ;
             modal_container.attr("id", "tiny-ui-container-" + random_id);
             tinyOptions['ui_container'] = "#tiny-ui-container-" + random_id;
-        };
+        }
 
         tinymce.init(tinyOptions);
         self.tiny = tinymce.get(self.tinyId);
